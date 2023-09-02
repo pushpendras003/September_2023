@@ -1,0 +1,30 @@
+class Solution:
+    def maxSum(self, nums: List[int], m: int, k: int) -> int:
+      p=[]
+      s=0
+      for i in nums:
+        s+=i
+        p.append(s)
+      ans=0
+      start=0
+      d=defaultdict(int)
+      for i in range(len(nums)):
+        d[nums[i]]+=1
+        #print(i,start)
+        if i-start==k-1 and len(d)>=m:
+          #print(d)
+          ans=max(ans,p[i]-p[start]+nums[start])
+          #print(ans)
+          d[nums[start]]-=1
+          if d[nums[start]]==0:
+            d.pop(nums[start])
+          start+=1
+        elif i-start==k-1:
+          d[nums[start]]-=1
+          if d[nums[start]]==0:
+            d.pop(nums[start])
+          start+=1
+      return ans 
+          
+        
+        
