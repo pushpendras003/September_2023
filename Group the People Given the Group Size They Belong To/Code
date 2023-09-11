@@ -1,0 +1,15 @@
+class Solution:
+    def groupThePeople(self, g: List[int]) -> List[List[int]]:
+      d={}
+      for i in range(len(g)):
+        if g[i] not in d:
+          d[g[i]]=[[]]
+        if len(d[g[i]][-1])<g[i]:
+          d[g[i]][-1].append(i)
+        else:
+          d[g[i]].append([i])
+      l=[]
+      for i in d.values():
+        for j in i:
+          l.append(j)
+      return l
