@@ -1,0 +1,23 @@
+class Solution:
+    def findItinerary(self, tickets: List[List[str]]) -> List[str]:
+      d=defaultdict(list)
+      for i,j in tickets:
+        d[i].append(j)
+      for i in d.keys():
+        d[i].sort(reverse=True)
+
+      l=["JFK"]
+      res=[]
+      while len(l)>0:
+          v=l[-1]
+          if v in d and len(d[v])>0:
+            l.append(d[v].pop())
+          else:
+            res.append(l.pop())
+      return res[::-1]
+        
+
+
+
+
+        
