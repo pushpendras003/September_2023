@@ -1,0 +1,41 @@
+class Solution:
+    def minCostConnectPoints(self, p: List[List[int]]) -> int:
+      def dis(p1,p2):
+        x,y=p1
+        u,v=p2
+        return abs(x-u)+abs(y-v)
+      n=len(p)
+      d=defaultdict(list)
+      for i in range(n):
+        for j in range(i+1,n):
+          v=dis(p[i],p[j])
+          d[i].append((v,j))
+          d[j].append((v,i))
+      pq=d[0]
+      heapq.heapify(pq)
+      visited=[0]*n
+      visited[0]=1
+      cnt=1
+      ans=0
+      while pq:
+        v,j=heapq.heappop(pq)
+        if not visited[j]:
+          ans+=v
+          cnt+=1
+          visited[j]=1
+          for t in d[j]:heapq.heappush(pq,t)
+        if cnt>=n:break
+      return ans
+
+
+      
+          
+      
+
+
+
+      
+
+
+
+        
