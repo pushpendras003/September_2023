@@ -1,0 +1,24 @@
+class Solution:
+    def minimumEffortPath(self, heights: List[List[int]]) -> int:
+      
+      q=deque([])
+      q.append((0,0))
+      m=len(heights)
+      n=len(heights[0])
+      d={ (row, col): float('inf') for col in range(n) for row in range(m) }
+      d[(0,0)]=0
+
+      while q:
+        i,j=q.popleft()
+        cost=d[(i,j)]
+        for a,b in [[0,1],[0,-1],[1,0],[-1,0]]:
+          x,y=i+a,j+b
+          if x>=0 and x<m and y>=0 and y<n:
+            t=abs(heights[x][y]-heights[i][j])
+            v=max(cost,t)
+            #print(x,y)
+            if v<d[(x,y)]:
+              q.append((x,y))
+              d[(x,y)]=v
+      print(d)
+      return d[(m-1,n-1)]
