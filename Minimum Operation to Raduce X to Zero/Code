@@ -1,0 +1,15 @@
+class Solution:
+    def minOperations(self, nums: List[int], x: int) -> int:
+      t=sum(nums)-x
+      n=len(nums)
+      if t==0:return n
+      max_len=cur=left=0
+      for right,val in enumerate(nums):
+        cur+=val
+        while left<=right and cur>t:
+          cur-=nums[left]
+          left+=1
+        if cur == t:
+          max_len=max(max_len,right-left+1)
+        
+      return n-max_len if max_len else -1
